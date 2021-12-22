@@ -24,7 +24,9 @@ namespace QFramework.Example
                     if (b)
                     {
                         var texture = res.Asset as Texture2D;
-                        var sprite = texture.CreateSprite();
+
+                        var sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height),
+                            Vector2.one * 0.5f);
                         image.sprite = sprite;
                         mResLoader.AddObjectForDestroyWhenRecycle2Cache(sprite);
                     }

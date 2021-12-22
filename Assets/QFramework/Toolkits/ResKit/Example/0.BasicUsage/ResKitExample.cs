@@ -23,36 +23,35 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System.IO;
 using UnityEngine;
 
 namespace QFramework.Example
 {
-	public class ResKitExample : MonoBehaviour
-	{
-		private ResLoader mResLoader = ResLoader.Allocate();
+    public class ResKitExample : MonoBehaviour
+    {
+        private ResLoader mResLoader = ResLoader.Allocate();
 
-		private void Start()
-		{
-			ResMgr.Init();
+        private void Start()
+        {
+            ResKit.Init();
+            
+            var prefab = mResLoader.LoadSync<GameObject>("resources://GameObject");
+            var gameObj = Instantiate(prefab);
+            gameObj.name = "这是使用 ResKit 加载的对象";
+            
+            prefab = mResLoader.LoadSync<GameObject>("AssetObj");
+            gameObj = Instantiate(prefab);
+            gameObj.name = "这是使用通过 AssetName 加载的对象";
 
-			mResLoader.LoadSync<GameObject>("resources://GameObject")
-				.Instantiate()
-				.Name("这是使用 ResKit 加载的对象");
+            prefab = mResLoader.LoadSync<GameObject>("assetobj_prefab", "AssetObj");
+            gameObj = Instantiate(prefab);
+            gameObj.name = "这是使用通过 AssetName  和 AssetBundle 加载的对象";
+        }
 
-			mResLoader.LoadSync<GameObject>("AssetObj")
-				.Instantiate()
-				.Name("这是使用通过 AssetName 加载的对象");
-
-			mResLoader.LoadSync<GameObject>("assetobj_prefab", "AssetObj")
-				.Instantiate()
-				.Name("这是使用通过 AssetName  和 AssetBundle 加载的对象");
-		}
-
-		private void OnDestroy()
-		{
-			mResLoader.Recycle2Cache();
-			mResLoader = null;
-		}
-	}
+        private void OnDestroy()
+        {
+            mResLoader.Recycle2Cache();
+            mResLoader = null;
+        }
+    }
 }

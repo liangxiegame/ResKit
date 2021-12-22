@@ -23,6 +23,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,7 +32,7 @@ namespace QFramework.Example
     public class ResLoaderRelateUnloadAssetExample : MonoBehaviour
     {
         // Use this for initialization
-        void Start()
+        IEnumerator Start()
         {
             var image = transform.Find("Image").GetComponent<Image>();
 
@@ -42,18 +43,18 @@ namespace QFramework.Example
             var texture2D = resLoader.LoadSync<Texture2D>("TextureExample1");
 
             // create Sprite 扩展
-            var sprite = texture2D.CreateSprite();
+
+            var sprite = Sprite.Create(texture2D, new Rect(0, 0, texture2D.width, texture2D.height), Vector2.one * 0.5f);
 
             image.sprite = sprite;
 
             // 添加关联的 Sprite
             resLoader.AddObjectForDestroyWhenRecycle2Cache(sprite);
 
-            this.Delay(5.0f, () =>
-            {
-                resLoader.Recycle2Cache();
-                resLoader = null;
-            });
+            yield return new WaitForSeconds(5.0f);
+            
+            resLoader.Recycle2Cache();
+            resLoader = null;
         }
     }
 }
