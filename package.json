@@ -1,0 +1,17 @@
+{
+  "name": "com.liangxiegame.reskit",
+  "version": "1.0.0",
+  "displayName": "ResKit",
+  "description": "ResKit 是一套资源管理工具，易上手且功能强大 | ResKit is a res management toolkit.easy 2 use and powerful",
+  "license": "MIT",
+  "unity": "2018.4",
+  "documentationUrl": "https://qframework.cn/",
+  "keywords": [
+    "ResKit"
+  ],
+  "author": {
+    "name": "liangxie",
+    "email": "liangxiegame@163.com",
+    "url": "https://qframework.cn"
+  }
+}
