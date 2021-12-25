@@ -71,8 +71,8 @@ namespace QFramework
             return mConfigInstance;
         }
 
-        [MenuItem("QFramework/Res Kit %#r")]
-        public static void ExecuteAssetBundle()
+        [MenuItem("QFramework/Toolkits/Res Kit %#r")]
+        public static void OpenWindow()
         {
             var window = (ResKitEditorWindow)GetWindow(typeof(ResKitEditorWindow), true);
             Debug.Log(Screen.width + " screen width*****");
@@ -84,6 +84,7 @@ namespace QFramework
         private void OnEnable()
         {
             mResKitView = new ResKitView();
+            mResKitView.EditorWindow = this;
             mResKitView.Init();
         }
 
@@ -121,6 +122,8 @@ namespace QFramework
             GUILayout.EndVertical();
             GUILayout.Space(50);
 
+            
+            
             // RenderEndCommandExecuter.ExecuteCommand();
         }
     }
@@ -184,6 +187,8 @@ namespace QFramework
         {
             fontSize = 12
         });
+        
+        public EditorWindow EditorWindow { get; set; }
 
         public void OnGUI()
         {
@@ -241,6 +246,10 @@ namespace QFramework
             {
                 EditorLifecycle.PushCommand(() =>
                 {
+                    if (EditorWindow)
+                    {
+                        EditorWindow.Close();
+                    }
                     // var window = container.Resolve<EditorWindow>();
                     //
                     // if (window)
@@ -324,18 +333,6 @@ namespace QFramework
         {
             EditorPrefs.SetBool(KEY_AUTOGENERATE_CLASS, mEnableGenerateClass);
             EditorPrefs.SetString(KEY_QAssetBundleBuilder_RESVERSION, mResVersion);
-        }
-
-        public new void OnShow()
-        {
-        }
-
-        public new void OnHide()
-        {
-        }
-
-        public void OnUpdate()
-        {
         }
     }
 
