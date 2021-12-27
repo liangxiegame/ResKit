@@ -232,7 +232,7 @@ namespace QFramework
                     yield break;
                 }
 
-                Debug.LogError("Load AssetConfig From File:" + path);
+                Debug.Log("Load AssetConfig From File:" + path);
                 SetSerializeData(sd);
             }
         }
